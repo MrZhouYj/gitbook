@@ -8,7 +8,7 @@ if [ -n "$msg" ]; then
   git push
   git status
 
-  if [ "$0" = 1 ]; then
+  if [ "$1" = 1 ]; then
     echo "ignore gh-pages"
     exit
   fi
