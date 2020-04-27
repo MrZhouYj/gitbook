@@ -7,6 +7,8 @@ if [ -n "$msg" ]; then
   git pull origin master
   git push
   git status
+  git checkout gh-pages
+
 else
     echo "commit message is nil!!!!"
 fi
