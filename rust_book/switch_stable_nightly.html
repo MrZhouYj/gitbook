@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>cargo更改源 · GitBook</title>
+        <title>rustup 切换stable、nightly · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -57,10 +57,8 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="create_macro.html" />
     
-    
-    <link rel="prev" href="reference_borrow.html" />
+    <link rel="prev" href="create_macro.html" />
     
 
     </head>
@@ -168,7 +166,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.2.5" data-path="change_cargo_resource.html">
+        <li class="chapter " data-level="1.2.5" data-path="change_cargo_resource.html">
             
                 <a href="change_cargo_resource.html">
             
@@ -194,7 +192,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.2.7" data-path="switch_stable_nightly.html">
+        <li class="chapter active" data-level="1.2.7" data-path="switch_stable_nightly.html">
             
                 <a href="switch_stable_nightly.html">
             
@@ -242,7 +240,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >cargo更改源</a>
+        <a href=".." >rustup 切换stable、nightly</a>
     </h1>
 </div>
 
@@ -257,15 +255,46 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="cargo&#x66F4;&#x6539;&#x6E90;">cargo&#x66F4;&#x6539;&#x6E90;</h1>
-<h3 id="&#x5728;-homecargoconfig-&#x4E2D;&#x6DFB;&#x52A0;&#x5982;&#x4E0B;&#x5185;&#x5BB9;&#xFF1A;">&#x5728; $HOME/.cargo/config &#x4E2D;&#x6DFB;&#x52A0;&#x5982;&#x4E0B;&#x5185;&#x5BB9;&#xFF1A;</h3>
-<p>&#x5982;&#x679C;&#x6CA1;&#x6709;config  &#x81EA;&#x5DF1;&#x65B0;&#x5EFA;&#x4E00;&#x4E2A;</p>
-<pre><code class="lang-rust">[source.crates-io]
-replace-with = <span class="hljs-symbol">&apos;ustc</span>&apos;
+                                <h1 id="rustup-&#x5207;&#x6362;stable&#x3001;nightly">rustup &#x5207;&#x6362;stable&#x3001;nightly</h1>
+<ul>
+<li><p>stable -&gt; nightly</p>
+<pre><code>C:\Users\rustr&gt;rustc --version
+rustc 1.43.0 (4fb7144ed 2020-04-20)
 
-[source.ustc]
-registry = <span class="hljs-string">&quot;https://mirrors.ustc.edu.cn/crates.io-index&quot;</span>
-</code></pre>
+C:\Users\rustr&gt;rustup override set nightly
+info: using existing install for &apos;nightly-x86_64-apple-darwin&apos;
+info: override toolchain for &apos;/Users/zhouyongjian&apos; set to &apos;nightly-x86_64-apple-darwin&apos;
+
+  nightly-x86_64-apple-darwin unchanged - rustc 1.44.0-nightly (b2e36e6c2 2020-04-22)
+
+C:\Users\rustr&gt;rustc --version
+rustc 1.44.0-nightly (b2e36e6c2 2020-04-22)
+</code></pre></li>
+</ul>
+<ul>
+<li><p>Nightly -&gt; stable</p>
+<pre><code>C:\Users\rustr&gt;rustc --version
+rustc 1.44.0-nightly (b2e36e6c2 2020-04-22)
+
+C:\Users\rustr&gt;rustup override set stable
+info: using existing install for &apos;stable-x86_64-apple-darwin&apos;
+info: override toolchain for &apos;/Users/zhouyongjian&apos; set to &apos;stable-x86_64-apple-darwin&apos;
+
+  stable-x86_64-apple-darwin unchanged - rustc 1.43.0 (4fb7144ed 2020-04-20)
+
+C:\Users\rustr&gt;rustc --version
+rustc 1.43.0 (4fb7144ed 2020-04-20)
+</code></pre></li>
+</ul>
+<ul>
+<li><p>&#x9ED8;&#x8BA4;&#x8BBE;&#x7F6E;</p>
+<pre><code>C:\Users\rustr&gt; rustup default stable
+info: using existing install for &apos;stable-x86_64-apple-darwin&apos;
+info: default toolchain set to &apos;stable-x86_64-apple-darwin&apos;
+
+  stable-x86_64-apple-darwin unchanged - rustc 1.43.0 (4fb7144ed 2020-04-20)
+</code></pre></li>
+</ul>
 
                                 
                                 </section>
@@ -293,14 +322,10 @@ registry = <span class="hljs-string">&quot;https://mirrors.ustc.edu.cn/crates.io
 
             
                 
-                <a href="reference_borrow.html" class="navigation navigation-prev " aria-label="Previous page: reference和borrow">
+                <a href="create_macro.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: 定义一个宏">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
-                
-                <a href="create_macro.html" class="navigation navigation-next " aria-label="Next page: 定义一个宏">
-                    <i class="fa fa-angle-right"></i>
-                </a>
                 
             
         
@@ -309,7 +334,7 @@ registry = <span class="hljs-string">&quot;https://mirrors.ustc.edu.cn/crates.io
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"cargo更改源","level":"1.2.5","depth":2,"next":{"title":"定义一个宏","level":"1.2.6","depth":2,"path":"rust_book/create_macro.md","ref":"rust_book/create_macro.md","articles":[]},"previous":{"title":"reference和borrow","level":"1.2.4","depth":2,"path":"rust_book/reference_borrow.md","ref":"rust_book/reference_borrow.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"rust_book/change_cargo_resource.md","mtime":"2020-04-26T10:34:09.241Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-04-27T02:33:10.363Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"rustup 切换stable、nightly","level":"1.2.7","depth":2,"previous":{"title":"定义一个宏","level":"1.2.6","depth":2,"path":"rust_book/create_macro.md","ref":"rust_book/create_macro.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"rust_book/switch_stable_nightly.md","mtime":"2020-04-27T02:32:17.383Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-04-27T02:33:10.363Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
