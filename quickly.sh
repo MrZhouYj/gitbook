@@ -21,6 +21,8 @@ if [ -n "$msg" ]; then
   git status
   git checkout master
 
+  open -a "/Applications/Safari.app" https://mrzhouyj.github.io/gitbook
+
 else
     echo "commit message is nil!!!!"
 fi
