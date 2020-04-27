@@ -318,13 +318,64 @@ a[<span class="hljs-number">0</span>] = <span class="hljs-number">123</span>; <s
 <span class="hljs-keyword">let</span> <span class="hljs-keyword">mut</span> a = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>];
 a[<span class="hljs-number">0</span>] = <span class="hljs-number">4</span>; <span class="hljs-comment">// &#x6B63;&#x786E;</span>
 </code></pre>
-<h3 id="bool">Bool</h3>
 <h3 id="char">char</h3>
 <p>&#x5B57;&#x7B26;&#x578B;&#x7528; char &#x8868;&#x793A;&#x3002;</p>
 <p>Rust&#x7684; char &#x7C7B;&#x578B;&#x5927;&#x5C0F;&#x4E3A; 4 &#x4E2A;&#x5B57;&#x8282;&#xFF0C;&#x4EE3;&#x8868; Unicode&#x6807;&#x91CF;&#x503C;&#xFF0C;&#x8FD9;&#x610F;&#x5473;&#x7740;&#x5B83;&#x53EF;&#x4EE5;&#x652F;&#x6301;&#x4E2D;&#x6587;&#xFF0C;&#x65E5;&#x6587;&#x548C;&#x97E9;&#x6587;&#x5B57;&#x7B26;&#x7B49;&#x975E;&#x82F1;&#x6587;&#x5B57;&#x7B26;&#x751A;&#x81F3;&#x8868;&#x60C5;&#x7B26;&#x53F7;&#x548C;&#x96F6;&#x5BBD;&#x5EA6;&#x7A7A;&#x683C;&#x5728; Rust &#x4E2D;&#x90FD;&#x662F;&#x6709;&#x6548;&#x7684; char &#x503C;&#x3002;</p>
-<h3 id="arrays">Arrays</h3>
-<h3 id="slices">Slices</h3>
-<h3 id="str">str</h3>
+<h3 id="&#x6CDB;&#x578B;">&#x6CDB;&#x578B;</h3>
+<h4 id="&#x5728;&#x51FD;&#x6570;&#x5B9A;&#x4E49;&#x4E2D;&#x4F7F;&#x7528;&#x6CDB;&#x578B;">&#x5728;&#x51FD;&#x6570;&#x5B9A;&#x4E49;&#x4E2D;&#x4F7F;&#x7528;&#x6CDB;&#x578B;</h4>
+<p>&#x5B9A;&#x4E49;&#x51FD;&#x6570;&#x65F6;&#x53EF;&#x4EE5;&#x5728;&#x51FD;&#x6570;&#x7B7E;&#x540D;&#x7684;&#x53C2;&#x6570;&#x6570;&#x636E;&#x7C7B;&#x578B;&#x548C;&#x8FD4;&#x56DE;&#x503C;&#x4E2D;&#x4F7F;&#x7528;&#x6CDB;&#x578B;&#x3002;</p>
+<pre><code class="lang-rust"><span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">largest</span></span>&lt;T&gt;(list: &amp;[T]) -&gt; T {}
+</code></pre>
+<h4 id="&#x7ED3;&#x6784;&#x4F53;&#x5B9A;&#x4E49;&#x4E2D;&#x7684;&#x6CDB;&#x578B;">&#x7ED3;&#x6784;&#x4F53;&#x5B9A;&#x4E49;&#x4E2D;&#x7684;&#x6CDB;&#x578B;</h4>
+<p>&#x4F7F;&#x7528; <code>&lt;&gt;</code> &#x6765;&#x5B9A;&#x4E49;&#x62E5;&#x6709;&#x4E00;&#x4E2A;&#x6216;&#x591A;&#x4E2A;&#x6CDB;&#x578B;&#x53C2;&#x6570;&#x7C7B;&#x578B;&#x5B57;&#x6BB5;&#x7684;&#x7ED3;&#x6784;&#x4F53;&#x3002;</p>
+<pre><code class="lang-rust"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Point</span></span>&lt;T, U&gt; {
+    x: T,
+    y: U,
+}
+</code></pre>
+<h4 id="&#x679A;&#x4E3E;&#x5B9A;&#x4E49;&#x4E2D;&#x7684;&#x6CDB;&#x578B;&#x6570;&#x636E;&#x7C7B;&#x578B;">&#x679A;&#x4E3E;&#x5B9A;&#x4E49;&#x4E2D;&#x7684;&#x6CDB;&#x578B;&#x6570;&#x636E;&#x7C7B;&#x578B;</h4>
+<pre><code class="lang-rust"><span class="hljs-class"><span class="hljs-keyword">enum</span> <span class="hljs-title">Result</span></span>&lt;T, E&gt; {
+    <span class="hljs-literal">Ok</span>(T),
+    <span class="hljs-literal">Err</span>(E),
+}
+</code></pre>
+<h4 id="&#x65B9;&#x6CD5;&#x5B9A;&#x4E49;&#x4E2D;&#x7684;&#x679A;&#x4E3E;&#x6570;&#x636E;&#x7C7B;&#x578B;">&#x65B9;&#x6CD5;&#x5B9A;&#x4E49;&#x4E2D;&#x7684;&#x679A;&#x4E3E;&#x6570;&#x636E;&#x7C7B;&#x578B;</h4>
+<pre><code class="lang-rust"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Point</span></span>&lt;T&gt; {
+    x: T,
+    y: T,
+}
+
+<span class="hljs-keyword">impl</span>&lt;T&gt; Point&lt;T&gt; {
+    <span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">x</span></span>(&amp;<span class="hljs-keyword">self</span>) -&gt; &amp;T {
+        &amp;<span class="hljs-keyword">self</span>.x
+    }
+}
+</code></pre>
+<blockquote>
+<p>&#x6CE8;&#x610F;&#x5FC5;&#x987B;&#x5728; <code>impl</code> &#x540E;&#x9762;&#x58F0;&#x660E; <code>T</code>&#xFF0C;&#x8FD9;&#x6837;&#x5C31;&#x53EF;&#x4EE5;&#x5728; <code>Point</code> &#x4E0A;&#x5B9E;&#x73B0;&#x7684;&#x65B9;&#x6CD5;&#x4E2D;&#x4F7F;&#x7528;&#x5B83;&#x4E86;&#x3002;</p>
+</blockquote>
+<p><strong>&#x7ED3;&#x6784;&#x4F53;&#x5B9A;&#x4E49;&#x4E2D;&#x7684;&#x6CDB;&#x578B;&#x7C7B;&#x578B;&#x53C2;&#x6570;&#x5E76;&#x4E0D;&#x603B;&#x662F;&#x4E0E;&#x7ED3;&#x6784;&#x4F53;&#x65B9;&#x6CD5;&#x7B7E;&#x540D;&#x4E2D;&#x4F7F;&#x7528;&#x7684;&#x6CDB;&#x578B;&#x662F;&#x540C;&#x4E00;&#x7C7B;&#x578B;</strong>&#x3002;</p>
+<pre><code class="lang-rust"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Point</span></span>&lt;T, U&gt; {
+    x: T,
+    y: U,
+}
+
+<span class="hljs-keyword">impl</span>&lt;T, U&gt; Point&lt;T, U&gt; {
+    <span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">mixup</span></span>&lt;V, W&gt;(<span class="hljs-keyword">self</span>, other: Point&lt;V, W&gt;) -&gt; Point&lt;T, W&gt; {
+        Point {
+            x: <span class="hljs-keyword">self</span>.x,
+            y: other.y,
+        }
+    }
+}
+</code></pre>
+<blockquote>
+<p>&#x6CE8;&#x610F;&#x6CDB;&#x578B;&#x53C2;&#x6570; <code>T</code> &#x548C; <code>U</code> &#x58F0;&#x660E;&#x4E8E; <code>impl</code> &#x4E4B;&#x540E;&#xFF0C;&#x56E0;&#x4E3A;&#x4ED6;&#x4EEC;&#x4E8E;&#x7ED3;&#x6784;&#x4F53;&#x5B9A;&#x4E49;&#x76F8;&#x5BF9;&#x5E94;&#x3002;&#x800C;&#x6CDB;&#x578B;&#x53C2;&#x6570; <code>V</code>&#x548C; <code>W</code> &#x58F0;&#x660E;&#x4E8E; <code>fn mixup</code> &#x4E4B;&#x540E;&#xFF0C;&#x56E0;&#x4E3A;&#x4ED6;&#x4EEC;&#x53EA;&#x662F;&#x76F8;&#x5BF9;&#x4E8E;&#x65B9;&#x6CD5;&#x672C;&#x8EAB;&#x7684;&#x3002;</p>
+</blockquote>
+<h3 id="&#x53C2;&#x8003;">&#x53C2;&#x8003;</h3>
+<ul>
+<li><a href="https://www.jianshu.com/p/64d54d39cffb" target="_blank">https://www.jianshu.com/p/64d54d39cffb</a></li>
+</ul>
 
                                 
                                 </section>
@@ -368,7 +419,7 @@ a[<span class="hljs-number">0</span>] = <span class="hljs-number">4</span>; <spa
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"rust基本类型","level":"1.2.3","depth":2,"next":{"title":"String和&str","level":"1.2.4","depth":2,"path":"rust_book/string_str.md","ref":"rust_book/string_str.md","articles":[]},"previous":{"title":"rust格式化","level":"1.2.2","depth":2,"path":"rust_book/notes.md","ref":"rust_book/notes.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"rust_book/data_type.md","mtime":"2020-04-27T05:52:05.266Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-04-27T08:02:11.396Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"rust基本类型","level":"1.2.3","depth":2,"next":{"title":"String和&str","level":"1.2.4","depth":2,"path":"rust_book/string_str.md","ref":"rust_book/string_str.md","articles":[]},"previous":{"title":"rust格式化","level":"1.2.2","depth":2,"path":"rust_book/notes.md","ref":"rust_book/notes.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"rust_book/data_type.md","mtime":"2020-04-27T09:19:24.496Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-04-27T10:28:45.885Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
