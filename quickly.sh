@@ -1,13 +1,18 @@
-echo "please input commit message:"
-read msg
+read -p "please input commit message: "  msg
 
 if [ -n "$msg" ]; then
-  gitbook build
+
   git add .
   git commit -m "$msg"
   git pull origin master
   git push
   git status
+
+  if [ "$0" = "1" ]; then
+    exit
+  fi
+
+  gitbook build
   git checkout gh-pages
 
   rm -rf gitbook index.html rust_book search_index.json
@@ -21,8 +26,14 @@ if [ -n "$msg" ]; then
   git status
   git checkout master
 
-  open -a "/Applications/Safari.app" https://mrzhouyj.github.io/gitbook
+  read -p "open gitbook with Safari? (y/n):" isopen
+  if [ "$isopen" = "y" ]; then
+     open -a "/Applications/Safari.app" https://mrzhouyj.github.io/gitbook
+  else
+    exit
+  fi
 
 else
-    echo "commit message is nil!!!!"
+    echo "commit message is nil, cancled opertion"
+    exit
 fi
