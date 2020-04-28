@@ -7,10 +7,8 @@
 lib.rs 文件
 
 ```rust
-pub mod mod1;
+pub mod mod1; //Rust会查找 src/mod1.rs 或者 src/mod1/mod.rs 
 ```
-
-Rust会查找 src/mod1.rs 或者 src/mod1/mod.rs 
 
 ```
 find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'  // 实现tree效果
