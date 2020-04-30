@@ -1,4 +1,4 @@
-# rustup 切换stable、nightly
+#  rustup 切换stable、nightly
 
 + stable -> nightly
 

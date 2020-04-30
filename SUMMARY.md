@@ -13,4 +13,8 @@
     * [链接mysql数据库](rust_book/connect_mysql.md)
     * [操作Redis](rust_book/redis.md)
     * [trait简介](rust_book/trait.md)
+    * [rust ownership](rust_book/rust_ownership.md)
+    * [rust lifetime](rust_book/rust_lifetime.md)
+    * [rust trait bound](rust_book/trait_bound.md)
+* [结合Objective-C和Rust两种语言 深入理解栈(Stack)和堆(Heap)](stack_heap.md)
 

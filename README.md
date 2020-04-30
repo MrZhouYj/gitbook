@@ -1,5 +1,5 @@
-# Introduction
-### 参考资料
+# 参考资料
++ [[Rust 程序设计语言](https://kaisery.github.io/trpl-zh-cn/title-page.html#rust-程序设计语言)]([Rust 程序设计语言](https://kaisery.github.io/trpl-zh-cn/title-page.html#rust-程序设计语言))
 
 + [https://docs.rs](https://docs.rs)
  + [https://rustwiki.org/zh-CN/edition-guide/rust-2018/cargo-and-crates-io/cargo-can-use-a-local-registry-replacement.html](https://rustwiki.org/zh-CN/edition-guide/rust-2018/cargo-and-crates-io/cargo-can-use-a-local-registry-replacement.html)
