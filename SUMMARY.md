@@ -11,4 +11,6 @@
     * [定义一个宏](rust_book/create_macro.md)
     * [rustup 切换stable、nightly](rust_book/switch_stable_nightly.md)
     * [链接mysql数据库](rust_book/connect_mysql.md)
+    * [操作Redis](rust_book/redis.md)
+    * [trait简介](rust_book/trait.md)
 
