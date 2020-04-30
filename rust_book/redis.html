@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>String和&str · GitBook</title>
+        <title>操作Redis · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -57,10 +57,10 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="reference_borrow.html" />
+    <link rel="next" href="trait.html" />
     
     
-    <link rel="prev" href="data_type.html" />
+    <link rel="prev" href="connect_mysql.html" />
     
 
     </head>
@@ -155,7 +155,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.2.4" data-path="string_str.html">
+        <li class="chapter " data-level="1.2.4" data-path="string_str.html">
             
                 <a href="string_str.html">
             
@@ -233,7 +233,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.2.10" data-path="redis.html">
+        <li class="chapter active" data-level="1.2.10" data-path="redis.html">
             
                 <a href="redis.html">
             
@@ -294,7 +294,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >String和&str</a>
+        <a href=".." >操作Redis</a>
     </h1>
 </div>
 
@@ -309,12 +309,69 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="string&#x548C;str">String&#x548C;&amp;str</h1>
-<ul>
-<li>&amp;str : &#x5B57;&#x7B26;&#x4E32;&#x7684;&#x5F15;&#x7528;</li>
-<li>String&#xFF1A;&#x57FA;&#x4E8E;&#x5806;&#x521B;&#x5EFA;&#x7684;&#xFF0C;&#x53EF;&#x589E;&#x957F;&#x7684;&#x5B57;&#x7B26;&#x4E32;</li>
-</ul>
-<p>&#x53C2;&#x8003; <a href="https://rust-by-example.budshome.com/std/str.html" target="_blank">https://rust-by-example.budshome.com/std/str.html</a></p>
+                                <h1 id="&#x64CD;&#x4F5C;redis">&#x64CD;&#x4F5C;Redis</h1>
+<pre><code class="lang-rust"><span class="hljs-keyword">extern</span> <span class="hljs-keyword">crate</span> diesel_demo;
+<span class="hljs-meta">#[macro_use]</span> <span class="hljs-keyword">extern</span> <span class="hljs-keyword">crate</span> redis_async;
+<span class="hljs-keyword">use</span> actix::prelude::*;
+<span class="hljs-keyword">use</span> actix_web::{Error <span class="hljs-keyword">as</span> AWError};
+<span class="hljs-keyword">use</span> actix_redis::{Command, RedisActor};
+<span class="hljs-keyword">use</span> redis_async::resp::RespValue;
+
+
+async <span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">set</span></span>(redis: web::Data&lt;Addr&lt;RedisActor&gt;&gt;) -&gt; <span class="hljs-built_in">Result</span>&lt;HttpResponse, AWError&gt; {
+    <span class="hljs-keyword">let</span> result=redis.send(Command(resp_array![<span class="hljs-string">&quot;set&quot;</span>,<span class="hljs-string">&quot;name&quot;</span>,<span class="hljs-string">&quot;myvalue&quot;</span>])).await?;
+    <span class="hljs-keyword">match</span> result {
+        <span class="hljs-literal">Ok</span>(RespValue::SimpleString(s)) <span class="hljs-keyword">if</span> s == <span class="hljs-string">&quot;OK&quot;</span> =&gt; {
+            <span class="hljs-literal">Ok</span>(HttpResponse::<span class="hljs-literal">Ok</span>().body(<span class="hljs-string">&quot;Set values success!&quot;</span>))
+        }
+        _ =&gt; {
+            <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;----&gt;{:?}&quot;</span>, result);
+            <span class="hljs-literal">Ok</span>(HttpResponse::InternalServerError().finish())
+        }
+    }
+}
+
+async <span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">get</span></span>(redis:web::Data&lt;Addr&lt;RedisActor&gt;&gt;)-&gt; <span class="hljs-built_in">Result</span>&lt;HttpResponse, AWError&gt; {
+    <span class="hljs-keyword">let</span> result=redis.send(Command(resp_array![<span class="hljs-string">&quot;get&quot;</span>,<span class="hljs-string">&quot;name&quot;</span>])).await?;
+    <span class="hljs-keyword">match</span> result{
+        <span class="hljs-literal">Ok</span>(RespValue::BulkString(s)) =&gt;{
+            <span class="hljs-literal">Ok</span>(HttpResponse::<span class="hljs-literal">Ok</span>().body(s))
+        }
+        _ =&gt; {
+            <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;----&gt;{:?}&quot;</span>, result);
+            <span class="hljs-literal">Ok</span>(HttpResponse::InternalServerError().finish())
+        }
+    }
+
+}
+<span class="hljs-meta">#[actix_rt::main]</span>
+async <span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">main</span></span>() -&gt; io::<span class="hljs-built_in">Result</span>&lt;()&gt; {
+
+    env::set_var(<span class="hljs-string">&quot;RUST_LOG&quot;</span>, <span class="hljs-string">&quot;actix_web=debug,actix_server=info&quot;</span>);
+    env_logger::init();
+
+    HttpServer::new( move || {
+        <span class="hljs-keyword">let</span> redis_addr = RedisActor::start(<span class="hljs-string">&quot;127.0.0.1:6379&quot;</span>);
+        App::new()
+            .data(redis_addr)
+            .wrap(middleware::Logger::default())
+            .route(<span class="hljs-string">&quot;/set&quot;</span>,web::get().to(set))
+            .route(<span class="hljs-string">&quot;/get&quot;</span>,web::get().to(get))
+            .service(
+                web::resource(<span class="hljs-string">&quot;/&quot;</span>).route(
+                    web::get().to(|req: HttpRequest| {
+                        HttpResponse::<span class="hljs-literal">Ok</span>().json(json!({
+                            <span class="hljs-string">&quot;state&quot;</span>: <span class="hljs-string">&quot;success&quot;</span>
+                        }))
+                    })
+                )
+            )
+     })
+    .bind(<span class="hljs-string">&quot;127.0.0.1:8080&quot;</span>)?
+    .run()
+    .await
+}
+</code></pre>
 
                                 
                                 </section>
@@ -342,12 +399,12 @@
 
             
                 
-                <a href="data_type.html" class="navigation navigation-prev " aria-label="Previous page: rust基本类型">
+                <a href="connect_mysql.html" class="navigation navigation-prev " aria-label="Previous page: 链接mysql数据库">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="reference_borrow.html" class="navigation navigation-next " aria-label="Next page: reference和borrow">
+                <a href="trait.html" class="navigation navigation-next " aria-label="Next page: trait简介">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -358,7 +415,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"String和&str","level":"1.2.4","depth":2,"next":{"title":"reference和borrow","level":"1.2.5","depth":2,"path":"rust_book/reference_borrow.md","ref":"rust_book/reference_borrow.md","articles":[]},"previous":{"title":"rust基本类型","level":"1.2.3","depth":2,"path":"rust_book/data_type.md","ref":"rust_book/data_type.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"rust_book/string_str.md","mtime":"2020-04-28T10:19:27.367Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-04-30T01:20:55.566Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"操作Redis","level":"1.2.10","depth":2,"next":{"title":"trait简介","level":"1.2.11","depth":2,"path":"rust_book/trait.md","ref":"rust_book/trait.md","articles":[]},"previous":{"title":"链接mysql数据库","level":"1.2.9","depth":2,"path":"rust_book/connect_mysql.md","ref":"rust_book/connect_mysql.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"rust_book/redis.md","mtime":"2020-04-29T06:41:22.066Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-04-30T01:20:55.566Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
