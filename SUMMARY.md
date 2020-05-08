@@ -16,6 +16,7 @@
     * [rust ownership](rust_book/rust_ownership.md)
     * [rust lifetime](rust_book/rust_lifetime.md)
     * [rust trait bound](rust_book/trait_bound.md)
+    * [rust 闭包](rust_book/closure.md)
 * [结合Objective-C和Rust两种语言 深入理解栈(Stack)和堆(Heap)](stack_heap.md)
 * [看过的有意思的文章](favorite_articles.md)
 
