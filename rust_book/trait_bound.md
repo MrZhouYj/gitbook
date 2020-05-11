@@ -15,3 +15,4 @@ fn main() {
     print_type_of(&vec![1, 2, 4]);  // prints "std::vec::Vec<i32>"
     print_type_of(&"foo");          // prints "&str"
 }
+
