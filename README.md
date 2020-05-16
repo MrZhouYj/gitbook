@@ -6,6 +6,8 @@
 
 **2. 锻炼自己的写作能力**
 
+...
+
 ### 参考资料
 
 + [[Rust 程序设计语言](https://kaisery.github.io/trpl-zh-cn/title-page.html#rust-程序设计语言)]([Rust 程序设计语言](https://kaisery.github.io/trpl-zh-cn/title-page.html#rust-程序设计语言))

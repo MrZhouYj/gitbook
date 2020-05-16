@@ -20,4 +20,5 @@
     * [rust trait bound](rust_book/trait_bound.md)
 * [结合Objective-C和Rust两种语言 深入理解栈(Stack)和堆(Heap)](stack_heap.md)
 * [看过的有意思的文章](favorite_articles.md)
+* [Vue 笔记](vue-notes.md)
 
