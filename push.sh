@@ -5,7 +5,7 @@ if [ -n "$msg" ]; then
   git add .
   git commit -m "$msg"
   git pull origin master
-  git push
+  git push origin master
   git status
 
   if [ "$1" = 1 ]; then
@@ -16,7 +16,6 @@ if [ -n "$msg" ]; then
   gitbook build
   git checkout gh-pages
 
-  rm -rf gitbook index.html rust_book search_index.json
   mv _book/* ./
   rm -rf _book/
   git status
