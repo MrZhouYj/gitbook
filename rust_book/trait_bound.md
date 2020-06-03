@@ -17,4 +17,3 @@ fn main() {
     print_type_of(&"foo");          // prints "&str"
 }
 ```
-

@@ -1,6 +1,8 @@
 # Summary
 
 * [Introduction](README.md)
+* ruby
+    * [joins 和 include](ruby/joins_include.md)
 * [rust结构](rust_book/rust_project_structure.md)
     * [rust结构](rust_book/rust_project_structure.md)
     * [rust格式化](rust_book/notes.md)
